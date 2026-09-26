@@ -1,0 +1,45 @@
+# Runtime business data and generated analytics
+/data/
+/output/
+/java/web/var/
+
+# Build products and downloaded tooling
+**/target/
+**/dist/
+**/.tooling/
+**/.web-cache/
+*.jar
+*.class
+
+# Secrets, databases, backups, and logs
+.env
+.env.*
+!.env.example
+*.dpapi
+*.mv.db
+*.trace.db
+*.sql.gz
+*.bak
+*.log
+*.pid
+*.pem
+*.key
+
+# Python / Node / IDE
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local temporary material
+tmp/
+temp/
+preview/
+render/
+renders/

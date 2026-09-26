@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f3a">
+  <meta name="description" content="校园餐厅订餐系统：学生点餐、商家经营与订单分析。">
+  <title>校园餐厅｜订餐与经营</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23173f3a'/%3E%3Cpath d='M5 15h22c-1 8-5 11-11 11S6 23 5 15Z' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M9 12V6m7 6V5m7 7V6' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./demo.css">
+  <script src="./demo.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#demo">跳到系统</a>
+  <header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="#top" aria-label="校园餐厅，返回顶部"><span class="brand-mark" aria-hidden="true">◡</span><span><strong>校园餐厅</strong><small>订餐与经营</small></span></a><nav class="nav" aria-label="页面导航"><a href="#demo">订餐系统</a><a href="#analysis">经营分析</a></nav></div></header>
+  <main id="top">
+    <section class="hero wrap" aria-labelledby="hero-title"><div class="hero-copy"><span class="eyebrow">CAMPUS DINING</span><h1 id="hero-title">今天吃什么？<br>从这里开始。</h1><p>看菜单、选餐食、核对订单。商家也能在同一页面维护菜品、处理订单和查看经营情况。</p><a class="cta" href="#demo">进入系统 <span aria-hidden="true">↗</span></a><div class="hero-steps"><span>01 选择菜品</span><span>02 核对下单</span><span>03 查看进度</span></div></div><div class="hero-card" aria-hidden="true"><div class="hero-card-top"><span>今日推荐</span><b>青禾食堂</b></div><div class="hero-food">🍚</div><strong>番茄牛肉饭</strong><small>热乎的一餐，刚刚好</small><div class="hero-card-bottom"><b>¥22.00</b><span>加入餐篮 →</span></div></div></section>
+    <section class="demo wrap" id="demo" aria-labelledby="demo-title">
+      <div class="demo-header"><div><span class="section-label">订餐系统</span><h2 id="demo-title">校园餐厅</h2><p>学生点餐与商家经营，都可以在这里完成。</p></div><button class="demo-reset" id="demo-reset" type="button">重置样例数据</button></div>
+      <div class="demo-shell">
+        <div class="demo-toolbar"><div class="demo-tabs" aria-label="选择身份"><button class="demo-tab is-active" id="demo-student-tab" type="button" aria-pressed="true">学生端</button><button class="demo-tab" id="demo-merchant-tab" type="button" aria-pressed="false">商家端</button></div><span class="demo-local" id="demo-current-user">选择账号进入</span><button class="demo-secondary" id="demo-logout" type="button" hidden>退出账号</button></div>
+        <p class="demo-notice" id="demo-notice" role="status" aria-live="polite" hidden></p>
+        <div class="demo-auth" id="demo-auth"><div class="auth-intro"><h3>欢迎来到校园餐厅</h3><p>选择预置账号，或创建一个昵称开始使用。无需填写密码和个人信息。</p></div><div class="demo-auth-grid"><form id="demo-login-form" class="demo-form"><h4>进入账号</h4><label>选择账号<select id="demo-account-select" required></select></label><button class="demo-primary" type="submit">进入系统</button></form><form id="demo-register-form" class="demo-form"><h4>创建账号</h4><label>昵称<input id="demo-account-name" type="text" minlength="2" maxlength="20" autocomplete="off" required></label><label>身份<select id="demo-account-role"><option value="STUDENT">学生</option><option value="MERCHANT">商家</option></select></label><label id="demo-store-field" hidden>店铺名称<input id="demo-store-name" type="text" minlength="2" maxlength="30" autocomplete="off"></label><button class="demo-secondary" type="submit">创建账号</button></form></div><p class="local-disclosure">此处不验证真实身份，也不会产生真实餐食订单。</p></div>
+        <div id="demo-student" class="demo-panel" hidden><div class="demo-panel-heading"><div><h3>今日菜单</h3><p>选择同一家店的菜品，核对后提交订单。</p></div></div><div class="demo-filter-bar"><label>商家<select id="demo-store-filter"></select></label><label>分类<select id="demo-category-filter"></select></label><label>搜索菜品<input id="demo-menu-search" type="search" placeholder="输入菜名" autocomplete="off"></label><span id="demo-menu-count" class="demo-filter-count"></span></div><div class="demo-student-grid"><div id="demo-menu" class="demo-menu"></div><aside class="demo-cart" aria-labelledby="demo-cart-title"><div class="demo-cart-heading"><h4 id="demo-cart-title">我的餐篮</h4><button class="demo-text-button" id="demo-clear-cart" type="button">清空</button></div><div id="demo-cart-lines"></div><div class="demo-cart-total" id="demo-cart-total"></div><div class="demo-preview-box" id="demo-preview-box" hidden></div><button class="demo-primary" id="demo-preview" type="button">核对订单</button><button class="demo-primary demo-accent" id="demo-checkout" type="button" hidden>确认下单</button><small>确认后扣减当前菜品库存；此处不产生真实餐食订单。</small></aside></div><div class="demo-subsection"><div class="demo-list-heading"><h4>我的订单</h4><span id="demo-student-count"></span></div><div id="demo-student-orders" class="demo-orders"></div><button id="demo-student-more" class="demo-secondary demo-more" type="button" hidden>查看全部订单</button></div></div>
+        <div id="demo-merchant" class="demo-panel" hidden>
+          <div class="demo-panel-heading"><div><h3>商家工作台</h3><p>菜品、订单与经营数据随操作更新。</p></div><span class="demo-local" id="demo-merchant-label"></span></div>
+          <div class="demo-period" role="group" aria-label="看板时间范围"><span>统计范围</span><button type="button" id="demo-period-7" class="is-active" aria-pressed="true">近 7 天</button><button type="button" id="demo-period-30" aria-pressed="false">近 30 天</button><small>销售与订单按所选时间统计；库存显示当前状态</small></div>
+          <div id="demo-metrics" class="demo-metrics"></div>
+          <div class="demo-dashboard-grid">
+            <section class="demo-manage demo-chart-card demo-chart-wide" aria-labelledby="trend-title"><div class="demo-chart-heading"><div><h4 id="trend-title">销售额与有效订单趋势</h4><p>取消订单不计入销售额和有效订单</p></div><span>¥ / 单</span></div><div id="demo-daily-sales"></div></section>
+            <section class="demo-manage demo-chart-card" aria-labelledby="status-title"><div class="demo-chart-heading"><div><h4 id="status-title">订单状态构成</h4><p>所选时间内的全部订单</p></div><span>单</span></div><div id="demo-status-breakdown"></div></section>
+            <section class="demo-manage demo-chart-card" aria-labelledby="top-title"><div class="demo-chart-heading"><div><h4 id="top-title">热销菜品排行</h4><p>按有效销售份数排序</p></div><span>份 / ¥</span></div><div id="demo-top-dishes"></div></section>
+            <section class="demo-manage demo-chart-card" aria-labelledby="slot-title"><div class="demo-chart-heading"><div><h4 id="slot-title">营业时段分布</h4><p>有效订单的午餐与晚餐分布</p></div><span>单 / ¥</span></div><div id="demo-time-slots"></div></section>
+            <section class="demo-manage demo-chart-card" aria-labelledby="stock-title"><div class="demo-chart-heading"><div><h4 id="stock-title">库存健康</h4><p>当前库存，不随时间筛选变化</p></div><span>菜品数</span></div><div id="demo-inventory"></div></section>
+          </div>
+          <div class="demo-manage demo-recent-card"><div class="demo-chart-heading"><div><h4>最近订单</h4><p>保留可读明细，便于核对图表数字</p></div><span>最近 5 单</span></div><div id="demo-recent-orders" class="demo-recent-grid"></div></div>
+          <div class="demo-merchant-grid"><div class="demo-manage"><h4>菜品与库存</h4><div id="demo-merchant-dishes"></div><form id="demo-dish-form" class="demo-form"><input id="demo-edit-id" type="hidden"><h5 id="demo-form-title">添加菜品</h5><label>菜品名称<input id="demo-dish-name" type="text" maxlength="40" required></label><div class="demo-form-row"><label>分类<select id="demo-dish-category"><option>主食</option><option>面食</option><option>汤品</option><option>小吃</option><option>饮品</option></select></label><label>单价（元）<input id="demo-dish-price" type="number" min="0.01" max="9999" step="0.01" required></label><label>库存（份）<input id="demo-dish-stock" type="number" min="0" max="9999" step="1" required></label></div><div class="demo-form-actions"><button class="demo-primary" type="submit">保存菜品</button><button class="demo-secondary" id="demo-cancel-edit" type="button" hidden>取消编辑</button></div></form></div><div class="demo-manage"><div class="demo-list-heading"><h4>订单处理</h4><label>状态<select id="demo-order-status"><option value="all">全部</option><option value="PLACED">已下单</option><option value="PREPARING">制作中</option><option value="COMPLETED">已完成</option><option value="CANCELLED">已取消</option></select></label></div><div id="demo-order-count" class="demo-filter-count"></div><div id="demo-merchant-orders" class="demo-orders"></div><button id="demo-order-more" class="demo-secondary demo-more" type="button" hidden>查看全部订单</button></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="demo-analysis wrap" id="analysis" aria-labelledby="demo-analysis-title"><div class="analysis-heading"><div><span class="section-label">数据中心</span><h2 id="demo-analysis-title">销售与提醒</h2><p>根据当前订单与库存自动更新。</p></div><button class="demo-secondary" id="demo-export-csv" type="button">导出订单明细 CSV</button></div><div id="demo-analysis-output" class="demo-analysis-output"></div><p class="analysis-disclosure">状态通知仅在页面内呈现，不会发送短信。</p></section>
+  </main>
+  <footer class="footer"><div class="wrap"><span>校园餐厅 · 订餐与经营</span><a href="#top">返回顶部 ↑</a></div></footer>
+</body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "low_stock_threshold": 15,
+  "restock_target": 30,
+  "top_n": 10
+}
