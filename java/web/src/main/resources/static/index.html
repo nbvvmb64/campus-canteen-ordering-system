@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f3a">
+  <title>校园餐厅 · 订餐与经营</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="校园餐厅首页"><span class="brand-mark" aria-hidden="true">食</span><span><strong>校园餐厅</strong><small>好好吃，好好生活</small></span></a>
+      <div class="header-actions"><span id="current-user" class="current-user" hidden></span><button id="logout-button" class="button button-quiet" type="button" hidden>退出登录</button></div>
+    </div>
+  </header>
+
+  <main id="main" class="page">
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <section id="auth-view" class="auth-layout" aria-labelledby="welcome-title">
+      <div class="welcome-panel">
+        <span class="eyebrow">校园餐厅订餐系统</span>
+        <h1 id="welcome-title">今天想吃点什么？</h1>
+        <p>学生点餐更轻松，商家经营更清楚。同一份订单，从下单到经营分析，都在这里衔接。</p>
+        <div class="welcome-steps"><span>01 选择身份</span><span>02 登录账号</span><span>03 开始使用</span></div>
+        <div class="welcome-decoration" aria-hidden="true"><span>新鲜</span><span>热乎</span><span>准时</span></div>
+      </div>
+      <div class="auth-card">
+        <div class="auth-switch" aria-label="账号操作"><button id="show-login" class="auth-switch-button is-active" type="button" aria-current="page">登录</button><button id="show-register" class="auth-switch-button" type="button">注册</button></div>
+        <form id="login-form" class="form-stack">
+          <div><h2>欢迎回来</h2><p class="muted">输入账号和密码继续使用。</p></div>
+          <label>账号<input name="username" type="text" autocomplete="username" minlength="3" maxlength="30" required></label>
+          <label>密码<input name="password" type="password" autocomplete="current-password" required></label>
+          <button class="button button-primary button-wide" type="submit">登录系统</button>
+        </form>
+        <form id="register-form" class="form-stack" hidden>
+          <div><h2>创建账号</h2><p class="muted">注册后请使用新账号登录。</p></div>
+          <label>账号<input name="username" type="text" autocomplete="username" minlength="3" maxlength="30" required></label>
+          <label>密码<input name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required></label>
+          <label>身份<select name="role" required><option value="STUDENT">学生 · 浏览与订餐</option><option value="MERCHANT">商家 · 菜品与订单</option></select></label>
+          <button class="button button-primary button-wide" type="submit">注册账号</button>
+        </form>
+        <p class="auth-note">使用服务端会话保护账号；订单金额和库存由系统计算。</p>
+      </div>
+    </section>
+
+    <section id="workspace-view" hidden>
+      <div class="workspace-heading"><div><span id="role-label" class="eyebrow"></span><h1 id="workspace-title">我的工作台</h1><p id="workspace-subtitle" class="muted"></p></div><button id="refresh-button" class="button button-secondary" type="button">刷新数据</button></div>
+      <nav id="workspace-nav" class="workspace-nav" aria-label="工作台页面"></nav>
+
+      <section id="student-menu" class="workspace-panel" hidden aria-labelledby="student-menu-title">
+        <div class="section-heading"><div><h2 id="student-menu-title">今日菜单</h2><p class="muted">同一笔订单只能选择同一家商家的菜品。</p></div><span id="menu-count" class="count-pill"></span></div>
+        <div class="student-layout"><div id="menu-list" class="dish-grid"></div><aside class="basket-card" aria-labelledby="basket-title"><div class="basket-head"><h3 id="basket-title">我的餐篮</h3><button id="clear-basket" class="text-button" type="button">清空</button></div><div id="basket-list"></div><div id="basket-preview" class="basket-preview" hidden></div><button id="preview-order" class="button button-primary button-wide" type="button">核对订单</button><button id="submit-order" class="button button-accent button-wide" type="button" hidden>确认下单</button></aside></div>
+      </section>
+
+      <section id="student-orders" class="workspace-panel" hidden aria-labelledby="student-orders-title"><div class="section-heading"><div><h2 id="student-orders-title">我的订单</h2><p class="muted">只有“已下单”的订单可以取消。</p></div><span id="student-order-count" class="count-pill"></span></div><div id="student-order-list" class="order-list"></div></section>
+
+      <section id="merchant-dashboard" class="workspace-panel" hidden aria-labelledby="merchant-dashboard-title"><div class="section-heading"><div><h2 id="merchant-dashboard-title">经营概览</h2><p class="muted">仅统计当前商家的业务；已取消订单不计入有效销售。</p></div><span id="dashboard-as-of" class="count-pill"></span></div><div id="merchant-metrics" class="metric-grid"></div><div class="dashboard-grid"><div class="surface"><h3>每日有效销售额</h3><div id="daily-sales"></div></div><div class="surface"><h3>库存提醒</h3><div id="inventory-list"></div></div></div></section>
+
+      <section id="merchant-dishes" class="workspace-panel" hidden aria-labelledby="merchant-dishes-title"><div class="section-heading"><div><h2 id="merchant-dishes-title">菜品管理</h2><p class="muted">修改价格或菜名不会改写历史订单明细。</p></div><span id="merchant-dish-count" class="count-pill"></span></div><div class="management-grid"><div class="surface"><h3 id="dish-form-title">添加菜品</h3><form id="dish-form" class="form-stack"><input type="hidden" name="dishId"><label>菜品名称<input name="dishName" type="text" maxlength="50" required></label><div class="form-row"><label>单价（元）<input name="unitPrice" type="number" min="0.01" step="0.01" inputmode="decimal" required></label><label>库存（份）<input name="stock" type="number" min="0" step="1" inputmode="numeric" required></label></div><div class="form-actions"><button class="button button-primary" type="submit">保存菜品</button><button id="cancel-dish-edit" class="button button-secondary" type="button" hidden>取消编辑</button></div></form></div><div id="merchant-dish-list" class="management-list"></div></div></section>
+
+      <section id="merchant-orders" class="workspace-panel" hidden aria-labelledby="merchant-orders-title"><div class="section-heading"><div><h2 id="merchant-orders-title">订单处理</h2><p class="muted">订单只可从“已下单”进入“制作中”，再进入“已完成”。</p></div><span id="merchant-order-count" class="count-pill"></span></div><div id="merchant-order-list" class="order-list"></div></section>
+    </section>
+  </main>
+  <dialog id="confirm-dialog" class="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message"><h2 id="confirm-title">请确认操作</h2><p id="confirm-message"></p><div class="form-actions"><button id="confirm-no" class="button button-secondary" type="button">返回</button><button id="confirm-yes" class="button button-danger" type="button">确认</button></div></dialog>
+  <footer class="site-footer">校园餐厅订餐系统 · Java 业务与 Python 分析协同</footer>
+</body>
+</html>
