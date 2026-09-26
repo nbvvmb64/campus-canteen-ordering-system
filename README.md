@@ -119,6 +119,4 @@ The source project also enforces database-location and cutover checks for its ma
 
 All checked-in records are fictional. Names, IDs, dates, prices, orders, salts, and password hashes in `examples/sample-data/` were generated only for this repository.
 
-## Status
 
-This repository is a sanitized review candidate. It is prepared for GitHub publication but has not been uploaded by the preparation workflow.
